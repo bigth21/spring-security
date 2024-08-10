@@ -6,6 +6,7 @@ import org.springframework.security.config.Customizer;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
 import org.springframework.security.web.SecurityFilterChain;
+import org.springframework.security.web.access.intercept.AuthorizationFilter;
 
 @Configuration(proxyBeanMethods = false)
 @EnableWebSecurity
@@ -19,8 +20,8 @@ public class SecurityConfig {
                         .anyRequest().authenticated()
                 )
                 .httpBasic(Customizer.withDefaults())
-                .formLogin(Customizer.withDefaults());
-//                .addFilterBefore(new RequestUriLoggingFilter(), UsernamePasswordAuthenticationFilter.class);
+                .formLogin(Customizer.withDefaults())
+                .addFilterBefore(new TenantFilter(), AuthorizationFilter.class);
         return http.build();
     }
 
