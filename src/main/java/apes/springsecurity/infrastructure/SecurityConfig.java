@@ -20,7 +20,7 @@ public class SecurityConfig {
                 )
                 .httpBasic(Customizer.withDefaults())
                 .formLogin(Customizer.withDefaults());
-//                .addFilterBefore(new RequestUriFilter(), UsernamePasswordAuthenticationFilter.class);
+//                .addFilterBefore(new RequestUriLoggingFilter(), UsernamePasswordAuthenticationFilter.class);
         return http.build();
     }
 

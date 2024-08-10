@@ -13,12 +13,11 @@ import java.io.IOException;
 @Component
 @Order(-101)
 @Slf4j
-public class RequestUriFilter extends OncePerRequestFilter {
+public class RequestUriLoggingFilter extends OncePerRequestFilter {
 
     @Override
     protected void doFilterInternal(HttpServletRequest request, HttpServletResponse response, FilterChain filterChain) throws ServletException, IOException {
-        String requestURI = request.getRequestURI();
-        log.info("Request url: {}", requestURI);
+        log.info("Request URI: {} {}", request.getMethod(), request.getRequestURI());
         filterChain.doFilter(request, response);
     }
 }
