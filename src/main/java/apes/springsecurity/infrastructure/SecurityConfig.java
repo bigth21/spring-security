@@ -16,10 +16,9 @@ public class SecurityConfig {
                 .authorizeHttpRequests(c -> c
                         .requestMatchers(HttpMethod.GET, "/").authenticated()
                         .anyRequest().authenticated()
-                );
-
-        http.formLogin(c -> c
-                .defaultSuccessUrl("/"));
+                )
+                .formLogin(c -> c
+                        .defaultSuccessUrl("/"));
 
         return http.build();
     }
