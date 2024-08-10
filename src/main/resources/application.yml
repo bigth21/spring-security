@@ -1,0 +1,9 @@
+spring:
+  application.name: spring-security
+  security:
+    filter.order: -100 # Default value
+
+logging.level:
+  root: info
+  org.springframework.security: trace
+
