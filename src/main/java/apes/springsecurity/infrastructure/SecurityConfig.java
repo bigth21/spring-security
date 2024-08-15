@@ -24,13 +24,12 @@ public class SecurityConfig {
     @Bean
     SecurityFilterChain filterChain(HttpSecurity http) throws Exception {
         http
-                .csrf(Customizer.withDefaults())
                 .authorizeHttpRequests(authorize -> authorize
-                        .anyRequest().authenticated()
-                )
+                        .anyRequest().authenticated())
                 .httpBasic(Customizer.withDefaults())
                 .formLogin(form -> form
                         .loginPage("/sign-in").permitAll())
+                .csrf(Customizer.withDefaults())
                 .addFilterBefore(new TenantFilter(), AuthorizationFilter.class);
         return http.build();
     }
