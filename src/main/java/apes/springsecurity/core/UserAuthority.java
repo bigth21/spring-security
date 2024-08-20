@@ -5,6 +5,7 @@ import lombok.AccessLevel;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 
+@Table(indexes = @Index(name = "ix_userid_authoriyid", columnList = "user, authority", unique = true))
 @Entity
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
 @Getter

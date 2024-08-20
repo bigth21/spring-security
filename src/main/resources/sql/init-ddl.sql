@@ -26,4 +26,6 @@ create table user_authority
     user_id     bigint not null,
     authoriy_id bigint not null,
     primary key (id)
-) engine = InnoDB
+) engine = InnoDB;
+alter table user_authority
+    add constraint ix_userid_authoriyid unique (user_id, authoriy_id);
