@@ -46,7 +46,7 @@ public class SecurityConfig {
 
     @Bean
     public UserDetailsService userDetailsService(UserRepository userRepository) {
-        return new CustomUserDetailsService(userRepository);
+        return new MyUserDetailsService(userRepository);
     }
 
     @Bean

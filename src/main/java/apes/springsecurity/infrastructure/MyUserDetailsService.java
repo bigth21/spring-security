@@ -10,7 +10,7 @@ import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import java.util.Optional;
 
 @RequiredArgsConstructor
-public class CustomUserDetailsService implements UserDetailsService {
+public class MyUserDetailsService implements UserDetailsService {
     private final UserRepository userRepository;
 
     @Override
@@ -18,6 +18,6 @@ public class CustomUserDetailsService implements UserDetailsService {
         Optional<User> byUsername = userRepository.findByUsernameWithAuthorities(username);
         if (byUsername.isEmpty())
             throw new UsernameNotFoundException(username);
-        return new CustomUserDetails(byUsername.get());
+        return new MyUserDetails(byUsername.get());
     }
 }

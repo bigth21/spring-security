@@ -7,11 +7,11 @@ import org.springframework.security.core.userdetails.UserDetails;
 
 import java.util.Collection;
 
-public class CustomUserDetails implements UserDetails {
+public class MyUserDetails implements UserDetails {
     private final User user;
     private final Collection<? extends GrantedAuthority> authorities;
 
-    public CustomUserDetails(User user) {
+    public MyUserDetails(User user) {
         this.user = user;
         this.authorities = user.getAuthorities()
                 .stream()
