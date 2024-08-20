@@ -1,0 +1,15 @@
+version: '3.1'
+
+services:
+  db-local:
+    image: mysql:8
+    restart: unless-stopped
+    ports:
+      - "3306:3306"
+    environment:
+      MYSQL_ROOT_PASSWORD: password
+      MYSQL_DATABASE: local
+      TZ: Asia/Seoul # system_time_zone
+    command:
+      - --character-set-server=utf8mb4
+      - --collation-server=utf8mb4_unicode_ci

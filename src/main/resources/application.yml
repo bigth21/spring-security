@@ -2,6 +2,20 @@ spring:
   application.name: spring-security
   security:
     filter.order: -100 # Default value
+  datasource:
+    url: jdbc:mysql://localhost:3306/local
+    username: root
+    password: password
+    driver-class-name: com.mysql.cj.jdbc.Driver
+  jpa:
+    hibernate:
+      ddl-auto: create
+    open-in-view: false
+    properties:
+      hibernate:
+        format_sql: true
+        show_sql: true
+        highlight_sql: true
 
 logging.level:
   root: info
