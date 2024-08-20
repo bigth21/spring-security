@@ -5,7 +5,7 @@ drop table if exists user_authority;
 create table authority
 (
     id   bigint not null auto_increment,
-    name varchar(10),
+    name varchar(20),
     primary key (id)
 ) engine = InnoDB;
 

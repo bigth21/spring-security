@@ -11,6 +11,6 @@ import lombok.NoArgsConstructor;
 public class Authority {
     @Id @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
-    @Column(nullable = false, length = 10)
+    @Column(nullable = false, length = 20)
     private String name;
 }
