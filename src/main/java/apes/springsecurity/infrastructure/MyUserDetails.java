@@ -6,14 +6,17 @@ import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
 
 import java.util.Collection;
+import java.util.Objects;
 
 public class MyUserDetails implements UserDetails {
-    private final User user;
+    private final String username;
+    private final String password;
     private final Collection<? extends GrantedAuthority> authorities;
 
     public MyUserDetails(User user) {
-        this.user = user;
-        this.authorities = user.getAuthorities()
+        username = user.getUsername();
+        password = user.getPassword();
+        authorities = user.getAuthorities()
                 .stream()
                 .map(a -> new SimpleGrantedAuthority(a.getName()))
                 .toList();
@@ -26,12 +29,12 @@ public class MyUserDetails implements UserDetails {
 
     @Override
     public String getPassword() {
-        return user.getPassword();
+        return password;
     }
 
     @Override
     public String getUsername() {
-        return user.getUsername();
+        return username;
     }
 
     @Override
@@ -51,6 +54,19 @@ public class MyUserDetails implements UserDetails {
 
     @Override
     public boolean isEnabled() {
-        return user.isEnabled();
+        return UserDetails.super.isEnabled();
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        MyUserDetails that = (MyUserDetails) o;
+        return Objects.equals(getUsername(), that.getUsername());
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hashCode(getUsername());
     }
 }

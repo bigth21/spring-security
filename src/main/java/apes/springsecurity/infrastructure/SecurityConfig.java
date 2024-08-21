@@ -17,6 +17,7 @@ import org.springframework.security.web.access.intercept.AuthorizationFilter;
 import org.springframework.security.web.context.DelegatingSecurityContextRepository;
 import org.springframework.security.web.context.HttpSessionSecurityContextRepository;
 import org.springframework.security.web.context.RequestAttributeSecurityContextRepository;
+import org.springframework.security.web.session.HttpSessionEventPublisher;
 
 @Configuration(proxyBeanMethods = false)
 @EnableWebSecurity
@@ -35,12 +36,13 @@ public class SecurityConfig {
                         .securityContextRepository(new DelegatingSecurityContextRepository(
                                 new RequestAttributeSecurityContextRepository(), new HttpSessionSecurityContextRepository()
                         )))
-                .sessionManagement(Customizer.withDefaults())
+                .sessionManagement(session -> session
+                        .maximumSessions(1))
                 .addFilterBefore(new TenantFilter(), AuthorizationFilter.class);
         return http.build();
     }
 
-    @Bean
+        @Bean
     public AuthenticationManager authenticationManager(UserDetailsService userDetailsService, PasswordEncoder passwordEncoder) {
         var authenticationProvider = new DaoAuthenticationProvider();
         authenticationProvider.setUserDetailsService(userDetailsService);
@@ -62,4 +64,8 @@ public class SecurityConfig {
         return PasswordEncoderFactories.createDelegatingPasswordEncoder();
     }
 
+    @Bean
+    public HttpSessionEventPublisher httpSessionEventPublisher() {
+        return new HttpSessionEventPublisher();
+    }
 }
