@@ -9,6 +9,7 @@ import org.springframework.security.authentication.dao.DaoAuthenticationProvider
 import org.springframework.security.config.Customizer;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
+import org.springframework.security.config.annotation.web.configurers.AbstractHttpConfigurer;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.crypto.factory.PasswordEncoderFactories;
 import org.springframework.security.crypto.password.PasswordEncoder;
@@ -23,20 +24,19 @@ import org.springframework.security.web.session.HttpSessionEventPublisher;
 @EnableWebSecurity
 public class SecurityConfig {
 
-    // TODO: Sort by filter chain order
     @Bean
     SecurityFilterChain filterChain(HttpSecurity http) throws Exception {
         http
-                .authorizeHttpRequests(authorize -> authorize
-                        .anyRequest().authenticated())
-                .httpBasic(Customizer.withDefaults())
-                .formLogin(form -> form
-                        .loginPage("/sign-in").permitAll())
-                .csrf(Customizer.withDefaults())
                 .securityContext(securityContext -> securityContext
                         .securityContextRepository(new DelegatingSecurityContextRepository(
                                 new RequestAttributeSecurityContextRepository(), new HttpSessionSecurityContextRepository()
                         )))
+                .csrf(Customizer.withDefaults())
+                .authorizeHttpRequests(authorize -> authorize
+                        .anyRequest().authenticated())
+                .httpBasic(AbstractHttpConfigurer::disable)
+                .formLogin(form -> form
+                        .loginPage("/sign-in").permitAll())
                 .sessionManagement(session -> session
                         .maximumSessions(1))
                 .addFilterBefore(new TenantFilter(), AuthorizationFilter.class);
