@@ -23,8 +23,9 @@ import org.springframework.security.web.session.HttpSessionEventPublisher;
 @EnableWebSecurity
 public class SecurityConfig {
 
+    // TODO: Sort by filter chain order
     @Bean
-    SecurityFilterChain filterChain(HttpSecurity http) throws Exception { // TODO: Sort by filter chain order
+    SecurityFilterChain filterChain(HttpSecurity http) throws Exception {
         http
                 .authorizeHttpRequests(authorize -> authorize
                         .anyRequest().authenticated())
