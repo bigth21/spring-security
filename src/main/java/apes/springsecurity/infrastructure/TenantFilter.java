@@ -18,8 +18,9 @@ public class TenantFilter extends OncePerRequestFilter {
         boolean hasAccess = isUserAllowed(tenantId);
         if (hasAccess) {
             filterChain.doFilter(request, response);
+        } else {
+            throw new AccessDeniedException("Access denied");
         }
-        throw new AccessDeniedException("Access denied");
     }
 
     private boolean isUserAllowed(String tenantId) {
