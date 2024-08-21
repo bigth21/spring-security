@@ -31,12 +31,12 @@ public class SecurityConfig {
                 .formLogin(form -> form
                         .loginPage("/sign-in").permitAll())
                 .csrf(Customizer.withDefaults())
-                .addFilterBefore(new TenantFilter(), AuthorizationFilter.class)
                 .securityContext(securityContext -> securityContext
                         .securityContextRepository(new DelegatingSecurityContextRepository(
                                 new RequestAttributeSecurityContextRepository(), new HttpSessionSecurityContextRepository()
-                        ))
-                );
+                        )))
+                .sessionManagement(Customizer.withDefaults())
+                .addFilterBefore(new TenantFilter(), AuthorizationFilter.class);
         return http.build();
     }
 
