@@ -38,7 +38,8 @@ public class SecurityConfig {
                 .formLogin(form -> form
                         .loginPage("/sign-in").permitAll())
                 .sessionManagement(session -> session
-                        .maximumSessions(1))
+                        .sessionConcurrency(concurrency -> concurrency
+                                .maximumSessions(1)))
                 .addFilterBefore(new TenantFilter(), AuthorizationFilter.class);
         return http.build();
     }
