@@ -15,11 +15,13 @@ import org.springframework.security.crypto.factory.PasswordEncoderFactories;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.security.web.SecurityFilterChain;
 import org.springframework.security.web.access.intercept.AuthorizationFilter;
+import org.springframework.security.web.authentication.RememberMeServices;
 import org.springframework.security.web.context.DelegatingSecurityContextRepository;
 import org.springframework.security.web.context.HttpSessionSecurityContextRepository;
 import org.springframework.security.web.context.RequestAttributeSecurityContextRepository;
 import org.springframework.security.web.session.HttpSessionEventPublisher;
 import org.springframework.session.data.redis.config.annotation.web.http.EnableRedisHttpSession;
+import org.springframework.session.security.web.authentication.SpringSessionRememberMeServices;
 
 @Configuration(proxyBeanMethods = false)
 @EnableWebSecurity
@@ -27,7 +29,7 @@ import org.springframework.session.data.redis.config.annotation.web.http.EnableR
 public class SecurityConfig {
 
     @Bean
-    SecurityFilterChain filterChain(HttpSecurity http) throws Exception {
+    SecurityFilterChain filterChain(HttpSecurity http, RememberMeServices rememberMeServices) throws Exception {
         http
                 .securityContext(securityContext -> securityContext
                         .securityContextRepository(new DelegatingSecurityContextRepository(
@@ -37,11 +39,14 @@ public class SecurityConfig {
                 .authorizeHttpRequests(authorize -> authorize
                         .anyRequest().authenticated())
                 .httpBasic(AbstractHttpConfigurer::disable)
+//                .formLogin(Customizer.withDefaults())
                 .formLogin(form -> form
                         .loginPage("/sign-in").permitAll())
                 .sessionManagement(session -> session
                         .sessionConcurrency(concurrency -> concurrency
                                 .maximumSessions(1)))
+                .rememberMe(remember -> remember
+                        .rememberMeServices(rememberMeServices))
                 .addFilterBefore(new TenantFilter(), AuthorizationFilter.class);
         return http.build();
     }
@@ -71,5 +76,12 @@ public class SecurityConfig {
     @Bean
     public HttpSessionEventPublisher httpSessionEventPublisher() {
         return new HttpSessionEventPublisher();
+    }
+
+    @Bean
+    public RememberMeServices rememberMeServices() {
+        var rememberMeServices = new SpringSessionRememberMeServices();
+        rememberMeServices.setValiditySeconds(60 * 60 * 24);
+        return rememberMeServices;
     }
 }
