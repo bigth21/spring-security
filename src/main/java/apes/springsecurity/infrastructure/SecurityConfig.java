@@ -46,6 +46,9 @@ public class SecurityConfig {
 //                .formLogin(Customizer.withDefaults())
                 .formLogin(form -> form
                         .loginPage("/sign-in").permitAll())
+                .logout(logout -> logout
+                        .logoutUrl("/sign-out")
+                        .logoutSuccessUrl("/"))
                 .sessionManagement(session -> session
                         .sessionConcurrency(concurrency -> concurrency
                                 .maximumSessions(1)))
