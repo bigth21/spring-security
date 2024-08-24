@@ -72,6 +72,6 @@ public class DefaultUserDetails implements UserDetails {
 
     @Override
     public String toString() {
-        return "MyUserDetails{" + "username='" + username + '\'';
+        return "DefaultUserDetails{" + "username='" + username + "'}";
     }
 }
