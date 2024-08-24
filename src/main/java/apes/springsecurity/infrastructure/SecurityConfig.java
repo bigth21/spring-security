@@ -41,7 +41,6 @@ public class SecurityConfig {
                         .logoutUrl("/sign-out")
                         .logoutSuccessUrl("/"))
                 .httpBasic(AbstractHttpConfigurer::disable)
-//                .formLogin(Customizer.withDefaults())
                 .formLogin(form -> form
                         .loginPage("/sign-in").permitAll())
                 .sessionManagement(session -> session
