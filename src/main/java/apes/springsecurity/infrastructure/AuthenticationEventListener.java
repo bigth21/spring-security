@@ -20,5 +20,5 @@ public class AuthenticationEventListener {
         log.error("Authentication failure event received(msg={})", event.getException().getMessage());
     }
 
-    // TODO: If need, catch events that DefaultAuthenticationEventPublisher provides.
+    // If needed, catch events that DefaultAuthenticationEventPublisher provides.
 }
