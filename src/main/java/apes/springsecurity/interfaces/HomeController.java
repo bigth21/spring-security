@@ -1,6 +1,6 @@
 package apes.springsecurity.interfaces;
 
-import apes.springsecurity.infrastructure.MyUserDetails;
+import apes.springsecurity.infrastructure.DefaultUserDetails;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.security.core.annotation.CurrentSecurityContext;
@@ -27,7 +27,7 @@ public class HomeController {
     }
 
     @GetMapping("/auth")
-    public String auth(@AuthenticationPrincipal MyUserDetails userDetails) {
+    public String auth(@AuthenticationPrincipal DefaultUserDetails userDetails) {
         log.info("userDetails.getUsername(): {}", userDetails.getUsername());
         return "home/auth";
     }

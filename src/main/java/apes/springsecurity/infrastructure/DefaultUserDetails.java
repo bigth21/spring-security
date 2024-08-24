@@ -8,12 +8,12 @@ import org.springframework.security.core.userdetails.UserDetails;
 import java.util.Collection;
 import java.util.Objects;
 
-public class MyUserDetails implements UserDetails {
+public class DefaultUserDetails implements UserDetails {
     private final String username;
     private final String password;
     private final Collection<? extends GrantedAuthority> authorities;
 
-    public MyUserDetails(User user) {
+    public DefaultUserDetails(User user) {
         username = user.getUsername();
         password = user.getPassword();
         authorities = user.getAuthorities()
@@ -61,12 +61,17 @@ public class MyUserDetails implements UserDetails {
     public boolean equals(Object o) {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
-        MyUserDetails that = (MyUserDetails) o;
+        DefaultUserDetails that = (DefaultUserDetails) o;
         return Objects.equals(getUsername(), that.getUsername());
     }
 
     @Override
     public int hashCode() {
         return Objects.hashCode(getUsername());
+    }
+
+    @Override
+    public String toString() {
+        return "MyUserDetails{" + "username='" + username + '\'';
     }
 }
