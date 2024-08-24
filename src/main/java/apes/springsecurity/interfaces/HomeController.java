@@ -9,4 +9,14 @@ public class HomeController {
     public String home() {
         return "index";
     }
+
+    @GetMapping("/unauth")
+    public String unauth() {
+        return "home/unauth";
+    }
+
+    @GetMapping("/auth")
+    public String auth() {
+        return "home/auth";
+    }
 }
