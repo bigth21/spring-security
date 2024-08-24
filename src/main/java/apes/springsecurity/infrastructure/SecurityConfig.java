@@ -38,6 +38,7 @@ public class SecurityConfig {
                         )))
                 .csrf(Customizer.withDefaults())
                 .authorizeHttpRequests(authorize -> authorize
+                        .requestMatchers("/error").permitAll()
                         .requestMatchers(HttpMethod.GET, "/").permitAll()
                         .requestMatchers(HttpMethod.GET, "/unauth").permitAll()
                         .anyRequest().authenticated())
