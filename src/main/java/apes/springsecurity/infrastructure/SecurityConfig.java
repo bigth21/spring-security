@@ -37,24 +37,24 @@ public class SecurityConfig {
                                 new RequestAttributeSecurityContextRepository(), new HttpSessionSecurityContextRepository()
                         )))
                 .csrf(Customizer.withDefaults())
-                .authorizeHttpRequests(authorize -> authorize
-                        .requestMatchers("/error").permitAll()
-                        .requestMatchers(HttpMethod.GET, "/").permitAll()
-                        .requestMatchers(HttpMethod.GET, "/unauth").permitAll()
-                        .anyRequest().authenticated())
+                .logout(logout -> logout
+                        .logoutUrl("/sign-out")
+                        .logoutSuccessUrl("/"))
                 .httpBasic(AbstractHttpConfigurer::disable)
 //                .formLogin(Customizer.withDefaults())
                 .formLogin(form -> form
                         .loginPage("/sign-in").permitAll())
-                .logout(logout -> logout
-                        .logoutUrl("/sign-out")
-                        .logoutSuccessUrl("/"))
                 .sessionManagement(session -> session
                         .sessionConcurrency(concurrency -> concurrency
                                 .maximumSessions(1)))
                 .rememberMe(remember -> remember
                         .rememberMeServices(rememberMeServices))
-                .addFilterBefore(new TenantFilter(), AuthorizationFilter.class);
+                .addFilterBefore(new TenantFilter(), AuthorizationFilter.class)
+                .authorizeHttpRequests(authorize -> authorize
+                        .requestMatchers("/error").permitAll()
+                        .requestMatchers(HttpMethod.GET, "/").permitAll()
+                        .requestMatchers(HttpMethod.GET, "/unauth").permitAll()
+                        .anyRequest().authenticated());
         return http.build();
     }
 
