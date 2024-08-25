@@ -8,9 +8,7 @@
     <title>Document</title>
 </head>
 <body>
+<div th:replace="~{/fragments :: nav-bar}"></div>
 Auth!
-<form th:action="@{/sign-out}" method="post">
-    <input type="submit" value="Sign Out" />
-</form>
 </body>
 </html>

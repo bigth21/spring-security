@@ -8,21 +8,7 @@
     <title>Document</title>
 </head>
 <body>
-<nav>
-    <a href="/">Home</a>
-    <div sec:authorize="!isAuthenticated()">
-        <form th:action="@{/sign-in}" method="get" >
-            <input type="submit" value="Sign In">
-        </form>
-    </div>
-    <div sec:authorize="isAuthenticated()">
-        <form th:action="@{/sign-out}" method="post">
-            <input type="submit" value="Sign Out">
-        </form>
-    </div>
-    <hr class="solid">
-</nav>
-
+<div th:replace="~{/fragments :: nav-bar}"></div>
 Home
 <li>
     <a href="/unauth">Unauth</a>

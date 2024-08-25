@@ -1,0 +1,17 @@
+<html xmlns:th="http://www.thymeleaf.org" xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
+<nav th:fragment="nav-bar">
+    <a href="/">Home</a>
+    <div sec:authorize="!isAuthenticated()">
+        <form th:action="@{/sign-in}" method="get">
+            <input type="submit" value="Sign In">
+        </form>
+    </div>
+    <div sec:authorize="isAuthenticated()">
+        <form th:action="@{/sign-out}" method="post">
+            <input type="submit" value="Sign Out">
+        </form>
+    </div>
+    <hr class="solid">
+</nav>
+
+</html>
