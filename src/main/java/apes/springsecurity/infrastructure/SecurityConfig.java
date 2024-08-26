@@ -4,6 +4,10 @@ import apes.springsecurity.core.UserRepository;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.http.HttpMethod;
+import org.springframework.security.access.expression.method.DefaultMethodSecurityExpressionHandler;
+import org.springframework.security.access.expression.method.MethodSecurityExpressionHandler;
+import org.springframework.security.access.hierarchicalroles.RoleHierarchy;
+import org.springframework.security.access.hierarchicalroles.RoleHierarchyImpl;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.ProviderManager;
 import org.springframework.security.authentication.dao.DaoAuthenticationProvider;
@@ -52,13 +56,16 @@ public class SecurityConfig {
                 .authorizeHttpRequests(authorize -> authorize
                         .requestMatchers("/error").permitAll()
                         .requestMatchers(HttpMethod.GET, "/").permitAll()
-                        .requestMatchers(HttpMethod.GET, "/unauth").permitAll()
+                        .requestMatchers(HttpMethod.GET, "/anonymous").permitAll()
+                        .requestMatchers(HttpMethod.GET, "/user").hasRole("USER")
+                        .requestMatchers(HttpMethod.GET, "/staff").hasRole("STAFF")
+                        .requestMatchers(HttpMethod.GET, "/admin").hasRole("ADMIN")
                         .anyRequest().authenticated());
         return http.build();
     }
 
-        @Bean
-    public AuthenticationManager authenticationManager(UserDetailsService userDetailsService, PasswordEncoder passwordEncoder) {
+    @Bean
+    AuthenticationManager authenticationManager(UserDetailsService userDetailsService, PasswordEncoder passwordEncoder) {
         var authenticationProvider = new DaoAuthenticationProvider();
         authenticationProvider.setUserDetailsService(userDetailsService);
         authenticationProvider.setPasswordEncoder(passwordEncoder);
@@ -70,24 +77,39 @@ public class SecurityConfig {
     }
 
     @Bean
-    public UserDetailsService userDetailsService(UserRepository userRepository) {
+    UserDetailsService userDetailsService(UserRepository userRepository) {
         return new DefaultUserDetailsService(userRepository);
     }
 
     @Bean
-    public PasswordEncoder passwordEncoder() {
+    PasswordEncoder passwordEncoder() {
         return PasswordEncoderFactories.createDelegatingPasswordEncoder();
     }
 
     @Bean
-    public HttpSessionEventPublisher httpSessionEventPublisher() {
+    HttpSessionEventPublisher httpSessionEventPublisher() {
         return new HttpSessionEventPublisher();
     }
 
     @Bean
-    public RememberMeServices rememberMeServices() {
+    RememberMeServices rememberMeServices() {
         var rememberMeServices = new SpringSessionRememberMeServices();
         rememberMeServices.setValiditySeconds(60 * 60 * 24);
         return rememberMeServices;
     }
+
+    @Bean
+    static RoleHierarchy roleHierarchy() {
+        return RoleHierarchyImpl.withDefaultRolePrefix()
+                .role("ADMIN").implies("STAFF")
+                .build();
+    }
+
+    // If using pre-post method security, following configuration must be added
+//    @Bean
+//    static MethodSecurityExpressionHandler methodSecurityExpressionHandler(RoleHierarchy roleHierarchy) {
+//        var expressionHandler = new DefaultMethodSecurityExpressionHandler();
+//        expressionHandler.setRoleHierarchy(roleHierarchy);
+//        return expressionHandler;
+//    }
 }

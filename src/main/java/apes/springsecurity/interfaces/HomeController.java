@@ -21,14 +21,24 @@ public class HomeController {
         return "index";
     }
 
-    @GetMapping("/unauth")
-    public String unauth() {
-        return "home/unauth";
+    @GetMapping("/anonymous")
+    public String anonymous() {
+        return "home/anonymous";
     }
 
-    @GetMapping("/auth")
-    public String auth(@AuthenticationPrincipal DefaultUserDetails userDetails) {
+    @GetMapping("/user")
+    public String user(@AuthenticationPrincipal DefaultUserDetails userDetails) {
         log.info("userDetails.getUsername(): {}", userDetails.getUsername());
-        return "home/auth";
+        return "home/user";
+    }
+
+    @GetMapping("/staff")
+    public String staff() {
+        return "home/staff";
+    }
+
+    @GetMapping("/admin")
+    public String admin() {
+        return "home/admin";
     }
 }
