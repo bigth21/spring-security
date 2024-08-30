@@ -1,6 +1,6 @@
 package apes.springsecurity.infrastructure;
 
-import apes.springsecurity.core.UserRepository;
+import apes.springsecurity.core.AccountRepository;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.http.HttpMethod;
@@ -75,8 +75,8 @@ public class SecurityConfig {
     }
 
     @Bean
-    UserDetailsService userDetailsService(UserRepository userRepository) {
-        return new DefaultUserDetailsService(userRepository);
+    UserDetailsService userDetailsService(AccountRepository accountRepository) {
+        return new DefaultUserDetailsService(accountRepository);
     }
 
     @Bean

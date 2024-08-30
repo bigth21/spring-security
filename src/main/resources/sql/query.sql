@@ -1,14 +1,17 @@
 explain
-select distinct u.id,
+select distinct ac.id,
+                ac.user_id,
+                ac.username,
+                ac.password,
+                u.id,
                 u.enabled,
-                u.password,
-                ua.user_id,
                 ua.id,
+                ua.user_id,
                 ua.authoriy_id,
-                a.id,
-                a.name,
-                u.username
-from user u
+                at.id,
+                at.name
+from account ac
+         join user u on u.id = ac.user_id
          join user_authority ua on u.id = ua.user_id
-         join authority a on a.id = ua.authoriy_id
-where u.username = 'admin';
+         join authority at on ac.id = ua.authoriy_id
+where ac.username = 'admin';
