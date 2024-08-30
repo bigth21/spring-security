@@ -1,8 +1,6 @@
 package apes.springsecurity.infrastructure;
 
-import apes.springsecurity.core.User;
 import org.springframework.security.core.GrantedAuthority;
-import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
 
 import java.util.Collection;
@@ -13,13 +11,10 @@ public class DefaultUserDetails implements UserDetails {
     private final String password;
     private final Collection<? extends GrantedAuthority> authorities;
 
-    public DefaultUserDetails(User user) {
-        username = user.getUsername();
-        password = user.getPassword();
-        authorities = user.getAuthorities()
-                .stream()
-                .map(a -> new SimpleGrantedAuthority(a.getName()))
-                .toList();
+    public DefaultUserDetails(String username, String password, Collection<? extends GrantedAuthority> authorities) {
+        this.username=username;
+        this.password=password;
+        this.authorities=authorities;
     }
 
     @Override

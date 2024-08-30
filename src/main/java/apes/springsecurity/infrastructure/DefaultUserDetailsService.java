@@ -1,8 +1,9 @@
 package apes.springsecurity.infrastructure;
 
-import apes.springsecurity.core.User;
-import apes.springsecurity.core.UserRepository;
+import apes.springsecurity.core.Account;
+import apes.springsecurity.core.AccountRepository;
 import lombok.RequiredArgsConstructor;
+import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
@@ -11,13 +12,21 @@ import java.util.Optional;
 
 @RequiredArgsConstructor
 public class DefaultUserDetailsService implements UserDetailsService {
-    private final UserRepository userRepository;
+    private final AccountRepository accountRepository;
 
     @Override
     public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
-        Optional<User> byUsername = userRepository.findByUsernameWithAuthorities(username);
+        Optional<Account> byUsername = accountRepository.findByUsernameWithAuthorities(username);
         if (byUsername.isEmpty())
             throw new UsernameNotFoundException(username);
-        return new DefaultUserDetails(byUsername.get());
+
+        Account account = byUsername.get();
+        return new DefaultUserDetails(
+                account.getUsername(),
+                account.getPassword(),
+                account.getUser().getAuthorities()
+                        .stream()
+                        .map(authority -> new SimpleGrantedAuthority(authority.getName()))
+                        .toList());
     }
 }
