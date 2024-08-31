@@ -12,6 +12,7 @@ import org.springframework.security.authentication.dao.DaoAuthenticationProvider
 import org.springframework.security.config.Customizer;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
+import org.springframework.security.config.annotation.web.configuration.WebSecurityCustomizer;
 import org.springframework.security.config.annotation.web.configurers.AbstractHttpConfigurer;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.crypto.factory.PasswordEncoderFactories;
@@ -30,6 +31,13 @@ import org.springframework.session.security.web.authentication.SpringSessionReme
 @EnableWebSecurity
 @EnableRedisHttpSession(maxInactiveIntervalInSeconds = 60 * 30)
 public class SecurityConfig {
+
+    public static final String STATIC_RESOURCES = "/css/**";
+
+    @Bean
+    WebSecurityCustomizer configureWebSecurity() {
+        return (web) -> web.ignoring().requestMatchers(STATIC_RESOURCES);
+    }
 
     @Bean
     SecurityFilterChain filterChain(HttpSecurity http, RememberMeServices rememberMeServices) throws Exception {

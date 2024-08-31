@@ -1,0 +1,44 @@
+/* Initialize default html styles */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+/* Background color */
+body {
+    font-family: Arial, sans-serif;
+    background-color: #f4f4f4;
+}
+
+/* Navigation bar style */
+.navbar {
+    background-color: #333;
+    padding: 10px 20px;
+}
+
+.nav-list {
+    list-style-type: none;
+    display: flex;
+    justify-content: center;
+}
+
+.nav-item {
+    margin: 0 15px;
+}
+
+.nav-item a {
+    color: #fff;
+    text-decoration: none;
+    font-weight: bold;
+    padding: 10px 15px;
+    display: block;
+    transition: background-color 0.3s ease, color 0.3s ease;
+}
+
+.nav-item a:hover,
+.nav-item a:focus {
+    background-color: #575757;
+    color: #ffcc00;
+    border-radius: 4px;
+}
