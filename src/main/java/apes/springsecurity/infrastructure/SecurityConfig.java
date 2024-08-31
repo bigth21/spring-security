@@ -35,7 +35,7 @@ public class SecurityConfig {
     public static final String STATIC_RESOURCES = "/css/**";
 
     @Bean
-    WebSecurityCustomizer configureWebSecurity() {
+    WebSecurityCustomizer webSecurityCustomizer() {
         return (web) -> web.ignoring().requestMatchers(STATIC_RESOURCES);
     }
 
