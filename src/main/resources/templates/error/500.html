@@ -10,12 +10,15 @@
 </head>
 <body>
 <div th:replace="~{/fragments :: nav-bar}"></div>
-<div class="warning-container">
-    <div class="warning-message">
-        <p>An unexpected error has occurred. Please contact the administrator at
-            <a href="mailto:taekhyeon.nam@gmail.com">taekhyeon.nam@gmail.com</a>
-        </p>
+<div class="content">
+    <div class="warning-container">
+        <div class="warning-message">
+            <p>An unexpected error has occurred. Please contact the administrator at
+                <a href="mailto:info@yourcompany.com">info@yourcompany.com</a>
+            </p>
+        </div>
     </div>
 </div>
+<div th:replace="~{/fragments :: footer}"></div>
 </body>
 </html>

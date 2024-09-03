@@ -1,6 +1,6 @@
 <html xmlns:th="http://www.thymeleaf.org" xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
-<header>
-    <nav class="navbar" th:fragment="nav-bar">
+<header th:fragment="nav-bar">
+    <nav class="navbar">
         <div class="nav-container">
             <ul class="nav-list left">
                 <li class="nav-item">
@@ -25,5 +25,14 @@
     </nav>
 </header>
 
-
+<footer th:fragment="footer" class="site-footer">
+    <div class="footer-content">
+        <p>&copy; 2024 Your Company Name. All Rights Reserved.</p>
+        <p>
+            <a href="mailto:info@yourcompany.com">Contact Us</a> |
+            <a href="/privacy-policy">Privacy Policy</a> |
+            <a href="/terms-of-service">Terms of Service</a>
+        </p>
+    </div>
+</footer>
 </html>

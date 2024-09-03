@@ -10,16 +10,21 @@
 </head>
 <body>
 <div th:replace="~{/fragments :: nav-bar}"></div>
-<div class="image-container">
-    <img th:src="@{/images/security-logo.png}" alt="spring security" class="main-image">
-</div>
+<div class="content">
+    <div class="image-container">
+        <a href="https://spring.io/projects/spring-security" target="_blank">
+            <img th:src="@{/images/security-logo.png}" alt="spring security" class="main-image" >
+        </a>
+    </div>
 
-<li>
-    <a href="/anonymous">Anonymous</a>
-    <a href="/user">User</a>
-    <a href="/staff">Staff</a>
-    <a href="/admin">Admin</a>
-    <a href="/errors/500">Error-500</a>
-</li>
+    <li>
+        <a href="/anonymous">Anonymous</a>
+        <a href="/user">User</a>
+        <a href="/staff">Staff</a>
+        <a href="/admin">Admin</a>
+        <a href="/errors/500">Error-500</a>
+    </li>
+</div>
+<div th:replace="~{/fragments :: footer}"></div>
 </body>
 </html>
