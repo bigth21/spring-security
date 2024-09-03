@@ -46,4 +46,14 @@ public class HomeController {
     public String error() {
         throw new RuntimeException();
     }
+
+    @GetMapping("/privacy-policy")
+    public String privacyPolicy() {
+        return "home/privacy-policy";
+    }
+
+    @GetMapping("/terms-of-service")
+    public String termsOfService() {
+        return "home/terms-of-service";
+    }
 }

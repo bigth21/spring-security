@@ -63,6 +63,8 @@ public class SecurityConfig {
                         .requestMatchers("/error").permitAll()
                         .requestMatchers(HttpMethod.GET, "/").permitAll()
                         .requestMatchers(HttpMethod.GET, "/anonymous").permitAll()
+                        .requestMatchers(HttpMethod.GET, "/privacy-policy").permitAll()
+                        .requestMatchers(HttpMethod.GET, "/terms-of-service").permitAll()
                         .requestMatchers(HttpMethod.GET, "/errors/500").permitAll()
                         .requestMatchers(HttpMethod.GET, "/user").hasRole("USER")
                         .requestMatchers(HttpMethod.GET, "/staff").hasRole("STAFF")
