@@ -10,7 +10,10 @@
 </head>
 <body>
 <div th:replace="~{/fragments :: nav-bar}"></div>
-Home
+<div class="image-container">
+    <img th:src="@{/images/security-logo.png}" alt="spring security" class="main-image">
+</div>
+
 <li>
     <a href="/anonymous">Anonymous</a>
     <a href="/user">User</a>

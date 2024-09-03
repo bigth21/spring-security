@@ -32,7 +32,7 @@ import org.springframework.session.security.web.authentication.SpringSessionReme
 @EnableRedisHttpSession(maxInactiveIntervalInSeconds = 60 * 30)
 public class SecurityConfig {
 
-    public static final String STATIC_RESOURCES = "/css/**";
+    public static final String[] STATIC_RESOURCES = {"/css/**", "/images/**"};
 
     @Bean
     WebSecurityCustomizer webSecurityCustomizer() {
