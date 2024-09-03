@@ -17,14 +17,49 @@ body {
     padding: 10px 20px;
 }
 
+.nav-container {
+    display: flex;
+    justify-content: space-between; /* Space out left and right items */
+    align-items: center; /* Center items vertically */
+}
+
 .nav-list {
     list-style-type: none;
     display: flex;
     justify-content: center;
 }
 
+/* Left and right alignment */
+.nav-list.left {
+    margin-right: auto; /* Pushes this list to the left */
+}
+
+.nav-list.right {
+    margin-left: auto; /* Pushes this list to the right */
+}
+
 .nav-item {
     margin: 0 15px;
+}
+
+.nav-item form input {
+    color: #fff;
+    background-color: #333; /* Matching the background color of the navigation bar */
+    /*border: 1px solid #fff; !* Optional: add border to make it visible *!*/
+    border: none;
+    font-weight: bold;
+    padding: 10px 15px;
+    display: block;
+    transition: background-color 0.3s ease, color 0.3s ease;
+    border-radius: 4px; /* Rounded corners for consistency */
+    font-size: 16px; /* Change this value to adjust the font size */
+}
+
+.nav-item form input:hover,
+.nav-item form input:focus {
+    background-color: #575757;
+    color: #ffcc00;
+    outline: none; /* Remove default focus outline */
 }
 
 .nav-item a {
