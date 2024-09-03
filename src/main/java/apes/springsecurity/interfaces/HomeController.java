@@ -41,4 +41,9 @@ public class HomeController {
     public String admin() {
         return "home/admin";
     }
+
+    @GetMapping("/errors/500")
+    public String error() {
+        throw new RuntimeException();
+    }
 }
