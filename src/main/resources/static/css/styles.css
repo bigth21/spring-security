@@ -5,7 +5,7 @@
     box-sizing: border-box;
 }
 
-/* Background color */
+/* General body styling */
 body {
     font-family: Arial, sans-serif;
     background-color: #f4f4f4;
@@ -148,5 +148,87 @@ body {
     margin: 0 10px;
 }
 .site-footer a:hover {
+    text-decoration: underline;
+}
+
+/* Sign in container styling */
+.signin-container {
+    background-color: #fff;
+    padding: 40px;
+    border-radius: 8px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    max-width: 400px;
+    width: 100%;
+    text-align: center;
+    position: absolute; /* Position the container absolutely */
+    top: 50%; /* Center vertically */
+    left: 50%; /* Center horizontally */
+    transform: translate(-50%, -50%); /* Offset the container by half of its own width and height */
+}
+/* Heading */
+.signin-container h2 {
+    margin-bottom: 20px;
+    font-size: 24px;
+    color: #333;
+}
+/* Input group styling */
+.input-group {
+    margin-bottom: 20px;
+    text-align: left;
+}
+.input-group label {
+    display: block;
+    font-size: 14px;
+    color: #555;
+    margin-bottom: 5px;
+}
+.input-group input[type="text"],
+.input-group input[type="password"] {
+    width: 100%;
+    padding: 10px;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    font-size: 14px;
+    box-sizing: border-box;
+}
+/* Checkbox group styling */
+.checkbox-group {
+    display: flex;
+    align-items: center;
+    margin-bottom: 20px;
+}
+.checkbox-group input[type="checkbox"] {
+    margin-right: 10px;
+    transform: scale(1.2); /* Makes the checkbox slightly larger */
+}
+.checkbox-group label {
+    font-size: 14px;
+    color: #555;
+    cursor: pointer;
+}
+/* Sign in button styling */
+.signin-button {
+    background-color: #4CAF50;
+    color: white;
+    border: none;
+    padding: 10px 20px;
+    border-radius: 4px;
+    font-size: 16px;
+    cursor: pointer;
+    width: 100%;
+}
+.signin-button:hover {
+    background-color: #45a049;
+}
+/* Signup link styling */
+.signup-link {
+    margin-top: 20px;
+    font-size: 14px;
+}
+.signup-link a {
+    color: #4CAF50;
+    text-decoration: none;
+}
+.signup-link a:hover {
     text-decoration: underline;
 }
