@@ -22,6 +22,8 @@ public class SignUpController {
         return "sign-up";
     }
 
+    // TODO: Validation
+    // TODO: Handle exception (PasswordsNotEqualException, UsernameNotFoundException)
     @PostMapping("/sign-up")
     public String signUp(@ModelAttribute("user") SignUpFormData signUpFormData) {
         if (!signUpFormData.getPassword().equals(signUpFormData.getPasswordRepeated()))
