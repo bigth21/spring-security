@@ -18,4 +18,9 @@ public class UserAuthority {
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "authoriyId", nullable = false, foreignKey = @ForeignKey(ConstraintMode.NO_CONSTRAINT))
     private Authority authority;
+
+    public UserAuthority(User user, Authority authority) {
+        this.user = user;
+        this.authority = authority;
+    }
 }

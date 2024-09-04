@@ -19,6 +19,10 @@ public class User {
     @OneToMany(mappedBy = "user")
     private List<UserAuthority> userAuthorities;
 
+    public User(boolean enabled) {
+        this.enabled = enabled;
+    }
+
     public List<Authority> getAuthorities() {
         return userAuthorities.stream()
                 .map(UserAuthority::getAuthority)

@@ -21,4 +21,10 @@ public class Account {
     private String username;
     @Column(nullable = false)
     private String password;
+
+    public Account(User user, String username, String password) {
+        this.user = user;
+        this.username = username;
+        this.password = password;
+    }
 }

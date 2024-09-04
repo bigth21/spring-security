@@ -26,7 +26,7 @@ public class DefaultUserDetailsService implements UserDetailsService {
                 account.getPassword(),
                 account.getUser().getAuthorities()
                         .stream()
-                        .map(authority -> new SimpleGrantedAuthority(authority.getName()))
+                        .map(authority -> new SimpleGrantedAuthority(authority.getName().name()))
                         .toList());
     }
 }
