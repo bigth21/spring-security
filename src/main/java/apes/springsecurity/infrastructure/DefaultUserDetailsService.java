@@ -1,7 +1,7 @@
 package apes.springsecurity.infrastructure;
 
-import apes.springsecurity.core.Account;
-import apes.springsecurity.core.AccountRepository;
+import apes.springsecurity.core.persistence.Account;
+import apes.springsecurity.core.persistence.AccountRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;

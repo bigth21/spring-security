@@ -1,6 +1,6 @@
 package apes.springsecurity.infrastructure;
 
-import apes.springsecurity.core.AccountRepository;
+import apes.springsecurity.core.persistence.AccountRepository;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.http.HttpMethod;

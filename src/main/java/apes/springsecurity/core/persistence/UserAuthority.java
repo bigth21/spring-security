@@ -1,4 +1,4 @@
-package apes.springsecurity.core;
+package apes.springsecurity.core.persistence;
 
 import jakarta.persistence.*;
 import lombok.AccessLevel;

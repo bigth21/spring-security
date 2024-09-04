@@ -1,4 +1,4 @@
-package apes.springsecurity.core;
+package apes.springsecurity.core.service;
 
 public class UsernameAlreadyExistException extends RuntimeException {
     public UsernameAlreadyExistException(String username) {

@@ -1,4 +1,4 @@
-package apes.springsecurity.core;
+package apes.springsecurity.core.persistence;
 
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;

@@ -22,7 +22,7 @@ class MaximumSessionsTest {
     @Test
     void loginOnSecondLoginThenFirstSessionTerminated() throws Exception {
         MvcResult mvcResult = this.mvc.perform(formLogin("/sign-in")
-                        .user("user")
+                        .user("user@abc.com")
                         .password("1234"))
                 .andExpect(authenticated())
                 .andReturn();
@@ -30,7 +30,7 @@ class MaximumSessionsTest {
         MockHttpSession firstLoginSession = (MockHttpSession) mvcResult.getRequest().getSession();
 
         this.mvc.perform(formLogin("/sign-in")
-                .user("user")
+                .user("user@abc.com")
                 .password("1234"))
                 .andExpect(authenticated());
 

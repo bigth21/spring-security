@@ -1,5 +1,6 @@
-package apes.springsecurity.core;
+package apes.springsecurity.core.service;
 
+import apes.springsecurity.core.persistence.*;
 import lombok.RequiredArgsConstructor;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;

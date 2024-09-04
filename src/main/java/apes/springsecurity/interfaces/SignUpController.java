@@ -1,7 +1,7 @@
 package apes.springsecurity.interfaces;
 
-import apes.springsecurity.core.AuthorityName;
-import apes.springsecurity.core.UserService;
+import apes.springsecurity.core.persistence.AuthorityName;
+import apes.springsecurity.core.service.UserService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
