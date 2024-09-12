@@ -6,6 +6,7 @@ import org.springframework.boot.test.autoconfigure.web.servlet.AutoConfigureMock
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.security.test.context.support.WithAnonymousUser;
 import org.springframework.security.test.context.support.WithMockUser;
+import org.springframework.security.test.context.support.WithUserDetails;
 import org.springframework.test.web.servlet.MockMvc;
 
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
@@ -28,6 +29,13 @@ class HomeControllerTest {
     @Test
     void staff() throws Exception {
         mockMvc.perform(get("/staff"))
+                .andExpect(status().isOk());
+    }
+
+    @WithUserDetails("user@abc.com")
+    @Test
+    void myPage() throws Exception {
+        mockMvc.perform(get("/users/{id}", 1L))
                 .andExpect(status().isOk());
     }
 }
