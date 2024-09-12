@@ -1,6 +1,7 @@
 package apes.springsecurity.infrastructure;
 
 import apes.springsecurity.core.persistence.AccountRepository;
+import jakarta.servlet.DispatcherType;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.http.HttpMethod;
@@ -35,11 +36,6 @@ public class SecurityConfig {
     public static final String[] STATIC_RESOURCES = {"/css/**", "/images/**"};
 
     @Bean
-    WebSecurityCustomizer webSecurityCustomizer() {
-        return (web) -> web.ignoring().requestMatchers(STATIC_RESOURCES);
-    }
-
-    @Bean
     SecurityFilterChain filterChain(HttpSecurity http, RememberMeServices rememberMeServices) throws Exception {
         http
                 .securityContext(securityContext -> securityContext
@@ -60,7 +56,8 @@ public class SecurityConfig {
                         .rememberMeServices(rememberMeServices))
                 .addFilterBefore(new TenantFilter(), AuthorizationFilter.class)
                 .authorizeHttpRequests(authorize -> authorize
-                        .requestMatchers("/error").permitAll()
+                        .dispatcherTypeMatchers(DispatcherType.FORWARD, DispatcherType.ERROR).permitAll()
+                        .requestMatchers(HttpMethod.GET, STATIC_RESOURCES).permitAll()
                         .requestMatchers(HttpMethod.GET, "/").permitAll()
                         .requestMatchers(HttpMethod.GET, "/anonymous").permitAll()
                         .requestMatchers(HttpMethod.GET, "/privacy-policy").permitAll()
