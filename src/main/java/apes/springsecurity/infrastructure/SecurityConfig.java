@@ -30,6 +30,7 @@ import org.springframework.security.web.context.RequestAttributeSecurityContextR
 import org.springframework.security.web.session.HttpSessionEventPublisher;
 import org.springframework.session.data.redis.config.annotation.web.http.EnableRedisHttpSession;
 import org.springframework.session.security.web.authentication.SpringSessionRememberMeServices;
+import org.springframework.stereotype.Component;
 
 @Configuration(proxyBeanMethods = false)
 @EnableWebSecurity
@@ -62,9 +63,12 @@ public class SecurityConfig {
                         .dispatcherTypeMatchers(DispatcherType.FORWARD, DispatcherType.ERROR).permitAll()
                         .requestMatchers(HttpMethod.GET, STATIC_RESOURCES).permitAll()
                         .requestMatchers(HttpMethod.GET, "/").permitAll()
-                        .requestMatchers(HttpMethod.GET, "/users/{userId}").access(
-                                (authenticationManager, requestAuthorizationContext) ->
-                                        new AuthorizationDecision(webSecurity.checkUserId(authenticationManager.get(), requestAuthorizationContext)))
+                        .requestMatchers(HttpMethod.GET, "/users/{id}/**").access(
+                                (authenticationManager, requestAuthorizationContext) -> {
+                                    var id = Long.valueOf(requestAuthorizationContext.getVariables().get("id"));
+                                    boolean granted = webSecurity.checkUserId(authenticationManager.get(), id);
+                                    return new AuthorizationDecision(granted);
+                                })
                         .requestMatchers(HttpMethod.GET, "/anonymous").permitAll()
                         .requestMatchers(HttpMethod.GET, "/privacy-policy").permitAll()
                         .requestMatchers(HttpMethod.GET, "/terms-of-service").permitAll()
@@ -125,4 +129,14 @@ public class SecurityConfig {
 //        expressionHandler.setRoleHierarchy(roleHierarchy);
 //        return expressionHandler;
 //    }
+
+    @Component
+    static class WebSecurity {
+        public boolean checkUserId(Authentication authentication, Long userId) {
+            if (authentication.getName().equals("anonymousUser"))
+                return false;
+            DefaultUserDetails principal = (DefaultUserDetails) authentication.getPrincipal();
+            return principal.getUserId().equals(userId);
+        }
+    }
 }
