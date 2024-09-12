@@ -1,7 +1,7 @@
 package apes.springsecurity.infrastructure;
 
-import apes.springsecurity.core.Account;
-import apes.springsecurity.core.AccountRepository;
+import apes.springsecurity.core.persistence.Account;
+import apes.springsecurity.core.persistence.AccountRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
@@ -26,7 +26,7 @@ public class DefaultUserDetailsService implements UserDetailsService {
                 account.getPassword(),
                 account.getUser().getAuthorities()
                         .stream()
-                        .map(authority -> new SimpleGrantedAuthority(authority.getName()))
+                        .map(authority -> new SimpleGrantedAuthority(authority.getName().name()))
                         .toList());
     }
 }

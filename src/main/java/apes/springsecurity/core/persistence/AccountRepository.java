@@ -1,4 +1,4 @@
-package apes.springsecurity.core;
+package apes.springsecurity.core.persistence;
 
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
@@ -13,4 +13,6 @@ public interface AccountRepository extends JpaRepository<Account, Long> {
             "join fetch ua.authority " +
             "where a.username = :username")
     Optional<Account> findByUsernameWithAuthorities(@Param("username") String username);
+
+    Optional<Account> findByUsername(String username);
 }

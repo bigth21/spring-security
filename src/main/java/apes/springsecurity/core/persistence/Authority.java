@@ -1,4 +1,4 @@
-package apes.springsecurity.core;
+package apes.springsecurity.core.persistence;
 
 import jakarta.persistence.*;
 import lombok.AccessLevel;
@@ -12,5 +12,6 @@ public class Authority {
     @Id @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
     @Column(nullable = false, length = 20)
-    private String name;
+    @Enumerated(EnumType.STRING)
+    private AuthorityName name;
 }

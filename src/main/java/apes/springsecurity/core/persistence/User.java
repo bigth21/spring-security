@@ -1,4 +1,4 @@
-package apes.springsecurity.core;
+package apes.springsecurity.core.persistence;
 
 import jakarta.persistence.*;
 import lombok.AccessLevel;
@@ -18,6 +18,10 @@ public class User {
 
     @OneToMany(mappedBy = "user")
     private List<UserAuthority> userAuthorities;
+
+    public User(boolean enabled) {
+        this.enabled = enabled;
+    }
 
     public List<Authority> getAuthorities() {
         return userAuthorities.stream()
