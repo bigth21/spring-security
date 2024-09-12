@@ -15,6 +15,11 @@
                         <input type="submit" value="Sign In">
                     </form>
                 </li>
+<!--                <li class="nav-item" sec:authorize="isAuthenticated()">-->
+<!--                    <form th:action="@{/users" method="post">-->
+<!--                        <input type="submit" value="My Page">-->
+<!--                    </form>-->
+<!--                </li>-->
                 <li class="nav-item" sec:authorize="isAuthenticated()">
                     <form th:action="@{/sign-out}" method="post">
                         <input type="submit" value="Sign Out">

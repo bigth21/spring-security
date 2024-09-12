@@ -1,5 +1,6 @@
 package apes.springsecurity.infrastructure;
 
+import lombok.Getter;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
 
@@ -7,11 +8,16 @@ import java.util.Collection;
 import java.util.Objects;
 
 public class DefaultUserDetails implements UserDetails {
+    @Getter
+    private final Long userId;
+    private final Long accountId;
     private final String username;
     private final String password;
     private final Collection<? extends GrantedAuthority> authorities;
 
-    public DefaultUserDetails(String username, String password, Collection<? extends GrantedAuthority> authorities) {
+    public DefaultUserDetails(Long userId, Long accountId, String username, String password, Collection<? extends GrantedAuthority> authorities) {
+        this.userId = userId;
+        this.accountId = accountId;
         this.username=username;
         this.password=password;
         this.authorities=authorities;

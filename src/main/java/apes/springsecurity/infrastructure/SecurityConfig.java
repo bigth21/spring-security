@@ -10,15 +10,18 @@ import org.springframework.security.access.hierarchicalroles.RoleHierarchyImpl;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.ProviderManager;
 import org.springframework.security.authentication.dao.DaoAuthenticationProvider;
+import org.springframework.security.authorization.AuthorizationDecision;
 import org.springframework.security.config.Customizer;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
 import org.springframework.security.config.annotation.web.configuration.WebSecurityCustomizer;
 import org.springframework.security.config.annotation.web.configurers.AbstractHttpConfigurer;
+import org.springframework.security.core.Authentication;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.crypto.factory.PasswordEncoderFactories;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.security.web.SecurityFilterChain;
+import org.springframework.security.web.access.expression.WebExpressionAuthorizationManager;
 import org.springframework.security.web.access.intercept.AuthorizationFilter;
 import org.springframework.security.web.authentication.RememberMeServices;
 import org.springframework.security.web.context.DelegatingSecurityContextRepository;
@@ -36,7 +39,7 @@ public class SecurityConfig {
     public static final String[] STATIC_RESOURCES = {"/css/**", "/images/**"};
 
     @Bean
-    SecurityFilterChain filterChain(HttpSecurity http, RememberMeServices rememberMeServices) throws Exception {
+    SecurityFilterChain filterChain(HttpSecurity http, RememberMeServices rememberMeServices, WebSecurity webSecurity) throws Exception {
         http
                 .securityContext(securityContext -> securityContext
                         .securityContextRepository(new DelegatingSecurityContextRepository(
@@ -59,6 +62,9 @@ public class SecurityConfig {
                         .dispatcherTypeMatchers(DispatcherType.FORWARD, DispatcherType.ERROR).permitAll()
                         .requestMatchers(HttpMethod.GET, STATIC_RESOURCES).permitAll()
                         .requestMatchers(HttpMethod.GET, "/").permitAll()
+                        .requestMatchers(HttpMethod.GET, "/users/{userId}").access(
+                                (authenticationManager, requestAuthorizationContext) ->
+                                        new AuthorizationDecision(webSecurity.checkUserId(authenticationManager.get(), requestAuthorizationContext)))
                         .requestMatchers(HttpMethod.GET, "/anonymous").permitAll()
                         .requestMatchers(HttpMethod.GET, "/privacy-policy").permitAll()
                         .requestMatchers(HttpMethod.GET, "/terms-of-service").permitAll()

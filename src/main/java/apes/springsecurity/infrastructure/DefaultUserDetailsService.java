@@ -16,12 +16,14 @@ public class DefaultUserDetailsService implements UserDetailsService {
 
     @Override
     public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
-        Optional<Account> byUsername = accountRepository.findByUsernameWithAuthorities(username);
+        Optional<Account> byUsername = accountRepository.findByUsernameWithUserAndAuthorities(username);
         if (byUsername.isEmpty())
             throw new UsernameNotFoundException(username);
 
         Account account = byUsername.get();
         return new DefaultUserDetails(
+                account.getUser().getId(),
+                account.getId(),
                 account.getUsername(),
                 account.getPassword(),
                 account.getUser().getAuthorities()

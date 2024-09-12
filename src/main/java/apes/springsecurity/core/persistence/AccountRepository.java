@@ -12,7 +12,7 @@ public interface AccountRepository extends JpaRepository<Account, Long> {
             "join fetch u.userAuthorities ua " +
             "join fetch ua.authority " +
             "where a.username = :username")
-    Optional<Account> findByUsernameWithAuthorities(@Param("username") String username);
+    Optional<Account> findByUsernameWithUserAndAuthorities(@Param("username") String username);
 
     Optional<Account> findByUsername(String username);
 }
