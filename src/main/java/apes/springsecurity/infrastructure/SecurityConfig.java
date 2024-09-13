@@ -37,6 +37,7 @@ public class SecurityConfig {
 
     public static final String[] STATIC_RESOURCES = {"/css/**", "/images/**"};
 
+    // TODO: Add apiFilterChain using SecurityMatcher for JWT authentication
     @Bean
     SecurityFilterChain filterChain(HttpSecurity http, RememberMeServices rememberMeServices, WebSecurity webSecurity) throws Exception {
         http
